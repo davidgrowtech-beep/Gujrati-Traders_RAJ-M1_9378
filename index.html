@@ -218,6 +218,22 @@
   .iab-banner.show{display:flex;}
   .iab-banner button{margin-left:auto;border:0;background:#140A2E;color:#fff;border-radius:6px;padding:4px 9px;font-size:12px;cursor:pointer;}
 
+  /* ---------- LOCKED (verifying) STATE ---------- */
+  .cta-btn.locked{
+    cursor:not-allowed;filter:saturate(.45) brightness(.82);
+    animation:flow 6s linear infinite;box-shadow:0 6px 18px -8px rgba(0,0,0,.6);
+  }
+  .cta-btn.locked::after{display:none;}
+  .cta-btn.locked::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;z-index:0;
+    width:calc(var(--p,0) * 100%);background:rgba(255,255,255,.28);
+    transition:width .25s linear;
+  }
+  .cta-btn.nope{animation:flow 6s linear infinite, nope .35s ease;}
+  @keyframes nope{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
+  .verify-note{display:block;margin-top:6px;font-size:11.5px;color:rgba(255,247,236,.6);}
+  #gateDebug{position:fixed;left:8px;top:8px;z-index:9999;background:rgba(0,0,0,.8);color:#9f9;font:11px/1.4 monospace;padding:6px 8px;border-radius:6px;pointer-events:none;white-space:pre;}
+
   @media (prefers-reduced-motion: reduce){
     *,*::before,*::after{animation:none !important;transition:none !important;}
   }
@@ -253,14 +269,14 @@
     <div class="ticker" id="ticker" aria-hidden="true"></div>
 
     <div class="badge-new">● JOIN NOW · હમણાં જોડાઓ</div>
-    <a href="https://t.me/+kravXRZxU1dmZTZl" class="cta-btn js-cta" rel="noopener">
+    <a href="#" class="cta-btn js-cta locked" rel="noopener" aria-disabled="true">
       <span class="row">
         <span class="tg-ico"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M21.5 3.5L2.8 10.7c-1 .4-1 1.6.1 1.9l4.7 1.5 1.8 5.6c.3.8 1.3 1 1.9.4l2.6-2.4 4.8 3.5c.7.5 1.7.1 1.9-.7l3.1-14.5c.2-1.1-.9-2-2.2-1.5z" fill="#229ED9"/></svg></span>
         <span class="main">ટેલિગ્રામ પર મફત જોડાઓ</span>
       </span>
       <span class="en">JOIN FREE ON TELEGRAM</span>
     </a>
-    <div class="cta-note gu">કોઈ ફી નહીં · કોઈ સ્પામ નહીં · ગમે ત્યારે છોડી શકો<br><span style="opacity:.75">No cost · No spam · Leave anytime</span><br><span style="color:var(--gold);font-weight:600">ટેલિગ્રામ ઍપ ઇન્સ્ટોલ હોવી જોઈએ · Telegram app required</span></div>
+    <div class="cta-note gu">કોઈ ફી નહીં · કોઈ સ્પામ નહીં · ગમે ત્યારે છોડી શકો<br><span style="opacity:.75">No cost · No spam · Leave anytime</span><br><span style="color:var(--gold);font-weight:600">ટેલિગ્રામ ઍપ ઇન્સ્ટોલ હોવી જોઈએ · Telegram app required</span><span class="verify-note">સુરક્ષા માટે બટન થોડી સેકન્ડમાં ખુલશે · Button unlocks in a few seconds (anti-spam)</span></div>
 
     <div class="trust">
       <div class="trust-item"><div class="trust-num gu">દરરોજ</div><div class="trust-label">Daily notes</div></div>
@@ -325,7 +341,7 @@
   <div class="final-cta">
     <h2 class="gu">સ્પષ્ટ મનથી ટ્રેડ કરવા તૈયાર છો?</h2>
     <p class="en">Ready to trade with a clear head? Free today, free tomorrow.</p>
-    <a href="https://t.me/+kravXRZxU1dmZTZl" class="cta-btn js-cta" rel="noopener">
+    <a href="#" class="cta-btn js-cta locked" rel="noopener" aria-disabled="true">
       <span class="row">
         <span class="tg-ico"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M21.5 3.5L2.8 10.7c-1 .4-1 1.6.1 1.9l4.7 1.5 1.8 5.6c.3.8 1.3 1 1.9.4l2.6-2.4 4.8 3.5c.7.5 1.7.1 1.9-.7l3.1-14.5c.2-1.1-.9-2-2.2-1.5z" fill="#229ED9"/></svg></span>
         <span class="main">હમણાં મફત જોડાઓ</span>
@@ -358,7 +374,7 @@
 </footer>
 
 <div class="sticky" id="sticky">
-  <a href="https://t.me/+kravXRZxU1dmZTZl" class="cta-btn js-cta" rel="noopener">
+  <a href="#" class="cta-btn js-cta locked" rel="noopener" aria-disabled="true">
     <span class="row">
       <span class="tg-ico"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M21.5 3.5L2.8 10.7c-1 .4-1 1.6.1 1.9l4.7 1.5 1.8 5.6c.3.8 1.3 1 1.9.4l2.6-2.4 4.8 3.5c.7.5 1.7.1 1.9-.7l3.1-14.5c.2-1.1-.9-2-2.2-1.5z" fill="#229ED9"/></svg></span>
       <span class="main">ટેલિગ્રામ પર જોડાઓ · Join</span>
@@ -374,12 +390,17 @@
    ============================================================ */
 var TG_CONFIG = {
   pixelId: "1553876416509378",
-  inviteHash: "kravXRZxU1dmZTZl",   // part after "t.me/+"
+  inviteHash: "kravXRZxU1dmZTZl",   // part after "t.me/+"  (NOT written in the page HTML any more)
   eventName: "Lead",
   contentName: "gujarati_trader_learning_station",
-  minDwellMs: 1500,                 // page must be visible this long before a click counts as a Lead
-  dedupHours: 24,                   // one Lead per device per 24h
-  reportFiltered: true              // send custom "FilteredClick" event with the reason
+
+  /* ---- fake-request gate (all must pass before the Telegram link even exists on the page) ---- */
+  ignoreClickMs: 1000,   // any tap in the first 1s is dead: no navigation, no Lead
+  minMovePx: 60,         // real scroll / swipe / mouse movement needed (proves a human is looking at the page)
+  minEngagedMs: 3000,    // ...and they must stay 3s after that first real movement
+  minDwellMs: 8000,      // total time the page was actually visible before the button unlocks
+  dedupHours: 24,        // Lead PIXEL event once per device per 24h (never blocks Telegram access)
+  reportFiltered: true   // send custom "FilteredClick" event with the reason (diagnostics only)
 };
 
 (function(){
@@ -402,39 +423,147 @@ var TG_CONFIG = {
   }
 
   /* ============================================================
-     Lead filter. The click is NEVER delayed or cancelled:
-     buttons are real <a href="https://t.me/+..."> links, so the browser
-     keeps the user's tap (user-activation) and Telegram opens normally.
-     Only the Lead event is filtered, never the navigation.
+     FAKE-REQUEST GATE
+     The real Telegram link is NOT in the HTML. Every button starts locked
+     (href="#"). The link is attached only after ALL of this is true:
+       1. page really visible for >= minDwellMs (hidden / background tab time does not count)
+       2. real human movement (scroll / swipe / mouse) >= minMovePx
+       3. >= minEngagedMs of viewing after that first real movement
+       4. not an automated browser, honeypot untouched
+     After unlock the button is a plain <a href="https://t.me/+..."> again, so the
+     browser opens Telegram natively on the user's own tap (no preventDefault,
+     no setTimeout, user-activation kept = same hand-off as before).
+     On click we re-check everything; a click that fails is cancelled.
      ============================================================ */
-  var visibleMs = 0, visibleSince = document.visibilityState === "visible" ? Date.now() : 0;
-  var humanSignal = false, honeypotHit = false, pressed = null;
-  var DEDUP_KEY = "tg_lead_" + TG_CONFIG.pixelId;
+  var CFG = TG_CONFIG;
+  var TG_URL = ["https:", "", "t.me", "+" + CFG.inviteHash].join("/");
+  var DEDUP_KEY = "tg_lead_" + CFG.pixelId;
+  var DEBUG = /[?&]gate_debug=1(&|$)/.test(location.search);
 
-  document.addEventListener("visibilitychange", function(){
-    if (document.visibilityState === "visible") { visibleSince = Date.now(); }
-    else if (visibleSince) { visibleMs += Date.now() - visibleSince; visibleSince = 0; }
+  function trusted(e){ return !!e && e.isTrusted !== false; }
+
+  var ctas = [].slice.call(document.querySelectorAll(".js-cta"));
+  ctas.forEach(function(a){
+    var m = a.querySelector(".main"), en = a.querySelector(".en");
+    a.__main = m ? m.innerHTML : "";
+    a.__en = en ? en.innerHTML : null;
   });
-  function totalVisible(){ return visibleMs + (visibleSince ? Date.now() - visibleSince : 0); }
 
-  ["touchstart","touchmove","mousemove","scroll","keydown","wheel"].forEach(function(ev){
-    window.addEventListener(ev, function(e){ if (e.isTrusted !== false) humanSignal = true; }, {passive:true, once:true});
-  });
+  var dwell = 0, lastTick = performance.now(), loadAt = Date.now();
+  var moveScore = 0, engagedFrom = null, lastInputAt = 0;
+  var lastY = window.pageYOffset || 0, tx = null, ty = null;
+  var pressed = null, pressedAt = 0, honeypotHit = false, leadFiredAt = 0;
+  var unlocked = false, reported = {};
 
-  document.getElementById("hp").addEventListener("click", function(e){ honeypotHit = true; e.preventDefault(); });
-
+  /* ---------- bot / automation checks ---------- */
   function isAutomated(){
     var ua = navigator.userAgent || "";
     if (navigator.webdriver) return "webdriver";
-    if (/HeadlessChrome|PhantomJS|Puppeteer|Playwright|Selenium|bot\b|crawler|spider|facebookexternalhit|Facebot|Lighthouse/i.test(ua)) return "ua";
+    if (/HeadlessChrome|PhantomJS|Puppeteer|Playwright|Selenium|bot\b|crawler|spider|facebookexternalhit|Facebot|Lighthouse|Python|curl|wget|Go-http|axios|node-fetch/i.test(ua)) return "ua";
     if (!window.screen || screen.width < 100 || screen.height < 100) return "screen";
     if (window.outerWidth === 0 && window.outerHeight === 0) return "headless_window";
+    if (window.callPhantom || window._phantom || window.__nightmare || window.domAutomation || window.domAutomationController) return "automation_global";
+    if (!navigator.languages || navigator.languages.length === 0) return "no_languages";
+    var mobile = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
+    if (!mobile && navigator.plugins && navigator.plugins.length === 0 && /Chrome/.test(ua) && !/Edg|OPR/.test(ua)) return "no_plugins_desktop";
     return null;
   }
+  var botReason = isAutomated();
+  document.getElementById("hp").addEventListener("click", function(e){ honeypotHit = true; e.preventDefault(); });
+  function isBlocked(){ return !!botReason || honeypotHit; }
+
+  /* ---------- real-human movement ---------- */
+  function addMove(n, e){
+    if (!trusted(e)) return;
+    if (dwell < 700) return;                    // ignore the first 0.7s (ad-tap carry-over / ghost touches)
+    moveScore += n;
+    if (engagedFrom === null && moveScore >= CFG.minMovePx) engagedFrom = dwell;
+  }
+  window.addEventListener("touchstart", function(e){
+    lastInputAt = Date.now();
+    var t = e.touches && e.touches[0]; if (t){ tx = t.clientX; ty = t.clientY; }
+  }, {passive:true});
+  window.addEventListener("touchmove", function(e){
+    lastInputAt = Date.now();
+    var t = e.touches && e.touches[0]; if (!t) return;
+    if (ty !== null) addMove(Math.abs(t.clientY - ty) + Math.abs(t.clientX - tx), e);
+    tx = t.clientX; ty = t.clientY;
+  }, {passive:true});
+  window.addEventListener("touchend", function(){ lastInputAt = Date.now(); ty = null; tx = null; }, {passive:true});
+  window.addEventListener("wheel", function(e){ lastInputAt = Date.now(); addMove(Math.abs(e.deltaY) + Math.abs(e.deltaX), e); }, {passive:true});
+  window.addEventListener("mousemove", function(e){ addMove(Math.abs(e.movementX || 0) + Math.abs(e.movementY || 0), e); }, {passive:true});
+  window.addEventListener("keydown", function(e){ lastInputAt = Date.now(); addMove(20, e); }, {passive:true});
+  window.addEventListener("scroll", function(e){
+    var y = window.pageYOffset || 0;
+    // a scroll only counts if a real touch/wheel/key happened just before it (momentum scroll included)
+    if (Date.now() - lastInputAt < 2500) addMove(Math.abs(y - lastY), {isTrusted:true});
+    lastY = y;
+  }, {passive:true});
+  window.addEventListener("pointerdown", function(e){
+    if (e.target && e.target.closest && e.target.closest(".js-cta")) return;   // pressing the locked button is not "reading"
+    addMove(20, e);
+  }, {passive:true});
+
+  /* ---------- state ---------- */
+  function state(){
+    var engaged = engagedFrom === null ? 0 : dwell - engagedFrom;
+    return {
+      dwell: dwell, engaged: engaged, moved: engagedFrom !== null,
+      ok: engagedFrom !== null && dwell >= CFG.minDwellMs && engaged >= CFG.minEngagedMs
+    };
+  }
+
+  /* ---------- locked-button labels ---------- */
+  function setLabel(a, gu, en){
+    var m = a.querySelector(".main"), e = a.querySelector(".en");
+    if (m) m.textContent = e ? gu : gu + " · " + en;
+    if (e) e.textContent = en;
+  }
+  function paintLocked(st){
+    var secs = Math.max(
+      Math.ceil((CFG.minDwellMs - st.dwell) / 1000),
+      st.moved ? Math.ceil((CFG.minEngagedMs - st.engaged) / 1000) : 0, 1);
+    var p = (Math.min(st.dwell / CFG.minDwellMs, 1) + (st.moved ? Math.min(st.engaged / CFG.minEngagedMs, 1) : 0)) / 2;
+    ctas.forEach(function(a){
+      a.style.setProperty("--p", p.toFixed(3));
+      if (!st.moved) setLabel(a, "નીચે સ્ક્રોલ કરીને વાંચો", "SCROLL & READ TO UNLOCK");
+      else setLabel(a, "ચકાસણી ચાલુ · " + secs + "s", "VERIFYING · " + secs + "s");
+    });
+  }
+  function unlock(){
+    unlocked = true;
+    ctas.forEach(function(a){
+      a.href = TG_URL;
+      a.classList.remove("locked", "nope");
+      a.removeAttribute("aria-disabled");
+      a.style.removeProperty("--p");
+      var m = a.querySelector(".main"), e = a.querySelector(".en");
+      if (m) m.innerHTML = a.__main;
+      if (e && a.__en !== null) e.innerHTML = a.__en;
+    });
+  }
+
+  /* ---------- timer: counts ONLY visible time ---------- */
+  var dbg = null;
+  if (DEBUG){ dbg = document.createElement("div"); dbg.id = "gateDebug"; document.body.appendChild(dbg); }
+  setInterval(function(){
+    var now = performance.now(), d = now - lastTick; lastTick = now;
+    if (document.visibilityState === "visible") dwell += Math.min(d, 400);   // clamp: a frozen/sleeping phone can't "bank" time
+    var st = state();
+    if (!unlocked){
+      if (isBlocked()) { /* stays locked forever, link never attached */ }
+      else if (st.ok) unlock();
+      else paintLocked(st);
+    }
+    if (dbg) dbg.textContent = "dwell " + (st.dwell/1000).toFixed(1) + "s\nengaged " + (st.engaged/1000).toFixed(1) + "s\nmove " + Math.round(moveScore) +
+      "px\nunlocked " + unlocked + "\nbot " + (botReason || honeypotHit ? (botReason || "honeypot") : "no");
+  }, 200);
+
+  /* ---------- Lead event (pixel only; never affects navigation) ---------- */
   function recentlyFired(){
     try {
       var t = parseInt(localStorage.getItem(DEDUP_KEY) || sessionStorage.getItem(DEDUP_KEY) || "0", 10);
-      return t && (Date.now() - t) < TG_CONFIG.dedupHours * 3600 * 1000;
+      return t && (Date.now() - t) < CFG.dedupHours * 3600 * 1000;
     } catch(e){ return false; }
   }
   function markFired(){
@@ -442,35 +571,60 @@ var TG_CONFIG = {
     try { localStorage.setItem(DEDUP_KEY, now); } catch(e){}
     try { sessionStorage.setItem(DEDUP_KEY, now); } catch(e){}
   }
-  function filterReason(evt, btn){
-    if (!evt || evt.isTrusted === false) return "untrusted";
-    if (honeypotHit) return "honeypot";
-    var bot = isAutomated(); if (bot) return "bot_" + bot;
-    if (pressed !== btn) return "no_press";
-    if (totalVisible() < TG_CONFIG.minDwellMs) return "too_fast";
-    if (!humanSignal && evt.detail === 0) return "no_interaction";
-    if (recentlyFired()) return "duplicate";
+  function fireLead(){
+    var now = Date.now();
+    if (now - leadFiredAt < 3000) return;       // double-tap on the same click
+    if (recentlyFired()) return;
+    leadFiredAt = now; markFired();
+    var st = state();
+    var eventId = CFG.contentName + "_" + now + "_" + Math.random().toString(36).slice(2, 8);
+    fbq('track', CFG.eventName, {
+      content_name: CFG.contentName,
+      dwell_seconds: Math.round(st.dwell / 1000),
+      engaged_seconds: Math.round(st.engaged / 1000)
+    }, { eventID: eventId });
+  }
+  function report(reason){
+    if (!CFG.reportFiltered || reported[reason]) return;
+    reported[reason] = 1;
+    fbq('trackCustom', 'FilteredClick', { reason: reason, dwell_seconds: Math.round(dwell / 1000) });
+  }
+
+  /* ---------- click check (second line of defence) ---------- */
+  function clickBlockReason(evt, btn){
+    if (!trusted(evt)) return "untrusted";
+    if (isBlocked()) return "bot";
+    if (Date.now() - loadAt < CFG.ignoreClickMs || dwell < CFG.ignoreClickMs) return "too_early";
+    var st = state();
+    if (!unlocked || !st.ok) return "locked";
+    if (evt.detail > 0) {                                           // a mouse/touch click (not keyboard / screen-reader)
+      if (pressed !== btn || Date.now() - pressedAt > 2000) return "no_press";
+      var r = btn.getBoundingClientRect(), x = evt.clientX, y = evt.clientY;
+      if ((x === 0 && y === 0) || x < r.left - 12 || x > r.right + 12 || y < r.top - 12 || y > r.bottom + 12) return "bad_coords";
+    }
     return null;
   }
 
-  document.querySelectorAll(".js-cta").forEach(function(btn){
-    var mark = function(e){ if (e.isTrusted !== false) { pressed = btn; humanSignal = true; } };
+  ctas.forEach(function(btn){
+    var mark = function(e){ if (trusted(e)) { pressed = btn; pressedAt = Date.now(); } };
     btn.addEventListener("pointerdown", mark, {passive:true});
     btn.addEventListener("touchstart", mark, {passive:true});
     btn.addEventListener("mousedown", mark, {passive:true});
+    btn.addEventListener("keydown", function(e){ if (e.key === "Enter" || e.key === " ") mark(e); });
 
-    // No preventDefault, no setTimeout, no location.href: the browser follows the href itself.
     btn.addEventListener("click", function(evt){
-      var reason = filterReason(evt, btn);
+      var reason = clickBlockReason(evt, btn);
       if (reason) {
-        if (TG_CONFIG.reportFiltered && reason.indexOf("bot_") !== 0 && reason !== "honeypot") {
-          fbq('trackCustom', 'FilteredClick', { reason: reason });
+        evt.preventDefault();                       // fake / early / locked click: Telegram is NOT opened
+        if (reason === "locked" || reason === "no_press" || reason === "bad_coords") {
+          report(reason);
+          btn.classList.remove("nope"); void btn.offsetWidth; btn.classList.add("nope");
+          setTimeout(function(){ btn.classList.remove("nope"); }, 400);
         }
         return;
       }
-      markFired();
-      var eventId = TG_CONFIG.contentName + "_" + Date.now() + "_" + Math.random().toString(36).slice(2,8);
-      fbq('track', TG_CONFIG.eventName, { content_name: TG_CONFIG.contentName }, { eventID: eventId });
+      // verified human: do NOT preventDefault / delay. The browser follows the real href itself.
+      fireLead();
     });
   });
 
