@@ -2,657 +2,194 @@
 <html lang="gu">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<script>
-/* Facebook/Instagram in-app browser handling.
-   Android: reopen this exact page in Chrome so the Telegram hand-off works (x=1 stops loops).
-   iOS: no reliable JS escape, a small banner is shown instead. */
-(function(){
-  var UA = navigator.userAgent || "";
-  window.__IAB = /FBAN|FBAV|FB_IAB|FBIOS|Instagram/i.test(UA);
-  window.__IOS = /iPhone|iPad|iPod/i.test(UA);
-  var android = /Android/i.test(UA);
-  var done = /[?&]x=1(&|$)/.test(location.search);
-  if (window.__IAB && android && !done) {
-    var q = location.search ? location.search + "&x=1" : "?x=1";
-    var rest = location.host + location.pathname + q;
-    window.__ESCAPING = true;
-    location.replace("intent://" + rest + "#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=" +
-      encodeURIComponent(location.protocol + "//" + rest) + ";end");
-  }
-})();
-</script>
-<title>Gujarati Trader's Learning Station | ગુજરાતી ટ્રેડર</title>
-<meta name="description" content="ગુજરાતી ટ્રેડર્સ માટે મફત દૈનિક માર્કેટ શીખ — Free daily market learning for Gujarati traders on Telegram.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Learn Enhanced Skills with Gujrati Traders</title>
+<meta name="description" content="Learn Enhanced Skills with Gujrati Traders - Free Gujarati & English stock market education community on Telegram.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#06140f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://connect.facebook.net">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600;800&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#140A2E;
-    --bg-2:#1E0F45;
-    --card:rgba(255,255,255,0.06);
-    --line:rgba(255,255,255,0.12);
-    --text:#FFF7EC;
-    --dim:rgba(255,247,236,0.72);
-    --saffron:#FF9933;
-    --pink:#FF3D8B;
-    --violet:#8B5CF6;
-    --cyan:#22D3EE;
-    --green:#22C55E;
-    --gold:#FFD23F;
-    --red:#F43F5E;
-    --maxw:540px;
-  }
-  *{box-sizing:border-box;}
-  html{-webkit-text-size-adjust:100%;}
-  body{
-    margin:0;color:var(--text);
-    font-family:'Poppins','Baloo Bhai 2',system-ui,sans-serif;
-    -webkit-font-smoothing:antialiased;line-height:1.5;
-    background:
-      radial-gradient(600px 320px at 10% -5%, rgba(255,61,139,0.30), transparent 60%),
-      radial-gradient(600px 360px at 100% 10%, rgba(139,92,246,0.35), transparent 60%),
-      radial-gradient(600px 400px at 50% 110%, rgba(255,153,51,0.25), transparent 60%),
-      linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
-    background-attachment:fixed;
-    min-height:100vh;
-  }
-  .gu{font-family:'Baloo Bhai 2','Poppins',sans-serif;}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 18px;}
-
-  /* ---------- HEADER ---------- */
-  header.top{
-    max-width:var(--maxw);margin:0 auto;
-    padding:16px 18px 14px;display:flex;align-items:center;gap:14px;
-    border-bottom:1px solid var(--line);
-  }
-  .logo-ring{
-    position:relative;width:76px;height:76px;flex-shrink:0;border-radius:50%;
-    padding:3px;
-    background:conic-gradient(var(--saffron),var(--pink),var(--violet),var(--cyan),var(--green),var(--gold),var(--saffron));
-    animation:spin 6s linear infinite;
-  }
-  .logo-ring img{
-    width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:top center;
-    border:3px solid var(--bg);display:block;
-    animation:spin 6s linear infinite reverse; /* keep photo upright */
-    background:#2a1a55;
-  }
-  @keyframes spin{to{transform:rotate(360deg);}}
-  .brand-name{font-weight:800;font-size:17px;line-height:1.2;}
-  .brand-gu{font-size:15px;color:var(--gold);font-weight:700;margin-top:2px;}
-  .status-pill{
-    margin-left:auto;display:flex;align-items:center;gap:6px;
-    font-size:11px;font-weight:600;color:#bbf7d0;
-    background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.4);
-    padding:5px 10px;border-radius:100px;white-space:nowrap;
-  }
-  .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,0.3);animation:blink 1.2s infinite;}
-  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.25;}}
-
-  /* ---------- HERO ---------- */
-  .hero{padding:26px 0 6px;text-align:center;}
-  .hero-logo{
-    width:132px;height:132px;margin:0 auto 18px;border-radius:50%;padding:4px;
-    background:conic-gradient(var(--saffron),var(--pink),var(--violet),var(--cyan),var(--green),var(--gold),var(--saffron));
-    box-shadow:0 0 40px rgba(255,61,139,0.45);
-    animation:spin 8s linear infinite;
-  }
-  .hero-logo img{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:top center;border:4px solid var(--bg);display:block;animation:spin 8s linear infinite reverse;background:#2a1a55;}
-  .eyebrow{
-    display:inline-block;font-size:12.5px;font-weight:700;
-    padding:6px 14px;border-radius:100px;margin-bottom:14px;
-    background:linear-gradient(90deg,rgba(255,153,51,0.2),rgba(255,61,139,0.2));
-    border:1px solid rgba(255,153,51,0.5);color:var(--gold);
-  }
-  .hero h1{margin:0 0 6px;font-size:30px;line-height:1.2;font-weight:800;}
-  .hero h1 .grad{
-    background:linear-gradient(90deg,var(--gold),var(--saffron),var(--pink),var(--violet));
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-  }
-  .hero .h1-en{font-size:18px;font-weight:600;color:var(--dim);margin:0 0 14px;}
-  .hero p.sub{color:var(--dim);font-size:15px;margin:0 auto 6px;max-width:40ch;}
-  .hero p.sub-en{color:rgba(255,247,236,0.55);font-size:13px;margin:0 auto 20px;max-width:42ch;}
-
-  .ticker{display:flex;align-items:flex-end;justify-content:center;gap:5px;height:44px;margin:0 0 22px;overflow:hidden;}
-  .candle{width:6px;border-radius:2px;opacity:0.9;animation:bob 2.4s ease-in-out infinite;}
-  @keyframes bob{0%,100%{transform:scaleY(1);}50%{transform:scaleY(0.7);}}
-  .candle{transform-origin:bottom;}
-
-  /* ---------- MULTICOLOR ANIMATED CTA ---------- */
-  .cta-btn{
-    position:relative;overflow:hidden;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    width:100%;padding:15px 18px;border-radius:16px;border:none;cursor:pointer;
-    text-decoration:none;color:#fff;
-    background:linear-gradient(90deg,#FF9933,#FF3D8B,#8B5CF6,#22D3EE,#22C55E,#FFD23F,#FF9933);
-    background-size:400% 100%;
-    animation:flow 4s linear infinite, glow 1.6s ease-in-out infinite;
-    box-shadow:0 10px 30px -8px rgba(255,61,139,0.7);
-    -webkit-tap-highlight-color:transparent;
-    transition:transform .12s ease;
-  }
-  .cta-btn::after{ /* shine sweep */
-    content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
-    background:linear-gradient(100deg,transparent,rgba(255,255,255,0.55),transparent);
-    transform:skewX(-20deg);animation:shine 2.4s ease-in-out infinite;
-  }
-  .cta-btn:active{transform:scale(0.97);}
-  .cta-btn .row{display:flex;align-items:center;gap:10px;position:relative;z-index:1;}
-  .cta-btn .main{font-family:'Baloo Bhai 2',sans-serif;font-size:21px;font-weight:800;text-shadow:0 2px 6px rgba(0,0,0,0.35);line-height:1.15;}
-  .cta-btn .en{position:relative;z-index:1;font-size:13px;font-weight:700;letter-spacing:.03em;opacity:0.95;text-shadow:0 1px 4px rgba(0,0,0,0.35);}
-  @keyframes flow{0%{background-position:0% 50%;}100%{background-position:400% 50%;}}
-  @keyframes glow{
-    0%,100%{box-shadow:0 0 0 0 rgba(255,61,139,0.55),0 10px 30px -8px rgba(255,61,139,0.7);}
-    50%{box-shadow:0 0 0 10px rgba(255,61,139,0),0 10px 40px -4px rgba(139,92,246,0.9);}
-  }
-  @keyframes shine{0%{left:-60%;}60%,100%{left:130%;}}
-
-  .tg-ico{width:30px;height:30px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .cta-note{text-align:center;font-size:12.5px;color:var(--dim);margin-top:10px;}
-  .badge-new{
-    display:inline-block;font-size:11px;font-weight:800;color:#140A2E;background:var(--gold);
-    padding:2px 8px;border-radius:6px;margin-bottom:8px;animation:blink 1s infinite;
-  }
-
-  /* ---------- TRUST ---------- */
-  .trust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:26px 0 4px;}
-  .trust-item{border-radius:14px;padding:14px 8px;text-align:center;border:1px solid var(--line);background:var(--card);}
-  .trust-item:nth-child(1){border-color:rgba(255,153,51,0.5);}
-  .trust-item:nth-child(2){border-color:rgba(34,197,94,0.5);}
-  .trust-item:nth-child(3){border-color:rgba(34,211,238,0.5);}
-  .trust-num{font-family:'Baloo Bhai 2',sans-serif;font-size:19px;font-weight:800;}
-  .trust-item:nth-child(1) .trust-num{color:var(--saffron);}
-  .trust-item:nth-child(2) .trust-num{color:var(--green);}
-  .trust-item:nth-child(3) .trust-num{color:var(--cyan);}
-  .trust-label{font-size:11px;color:var(--dim);margin-top:2px;}
-
-  /* ---------- SECTIONS ---------- */
-  section{padding:30px 0 6px;}
-  .sec-title{font-family:'Baloo Bhai 2',sans-serif;font-size:24px;font-weight:800;margin:0;}
-  .sec-en{font-size:13px;color:var(--dim);margin:0 0 18px;}
-  .learn-list{display:flex;flex-direction:column;gap:12px;}
-  .learn-row{display:flex;gap:14px;align-items:flex-start;padding:16px;border-radius:16px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--c);}
-  .learn-icon{width:42px;height:42px;flex-shrink:0;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--c);}
-  .learn-copy h3{margin:0;font-family:'Baloo Bhai 2',sans-serif;font-size:17px;font-weight:700;}
-  .learn-copy .h3-en{font-size:12px;font-weight:600;color:var(--c);margin-bottom:4px;}
-  .learn-copy p{margin:0;font-size:13.5px;color:var(--dim);}
-
-  .mentor{display:flex;gap:16px;align-items:center;padding:18px;border-radius:16px;
-    background:linear-gradient(135deg,rgba(139,92,246,0.18),rgba(255,61,139,0.12));border:1px solid rgba(139,92,246,0.45);}
-  .mentor img{width:78px;height:78px;border-radius:14px;object-fit:cover;object-position:top center;border:2px solid var(--gold);flex-shrink:0;background:#2a1a55;}
-  .mentor h3{margin:0 0 3px;font-size:16px;}
-  .mentor p{margin:0;font-size:13px;color:var(--dim);}
-
-  .steps{display:flex;flex-direction:column;gap:10px;}
-  .step{display:flex;gap:14px;align-items:center;padding:14px;border-radius:14px;background:var(--card);border:1px solid var(--line);}
-  .step-num{width:36px;height:36px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#140A2E;}
-  .step:nth-child(1) .step-num{background:var(--saffron);}
-  .step:nth-child(2) .step-num{background:var(--pink);color:#fff;}
-  .step:nth-child(3) .step-num{background:var(--green);}
-  .step h4{margin:0;font-family:'Baloo Bhai 2',sans-serif;font-size:16px;}
-  .step p{margin:0;font-size:12.5px;color:var(--dim);}
-
-  .final-cta{text-align:center;padding:34px 0 30px;}
-  .final-cta h2{font-family:'Baloo Bhai 2',sans-serif;font-size:25px;margin:0 0 2px;}
-  .final-cta .en{font-size:14px;color:var(--dim);margin:0 0 18px;}
-
-  footer{padding:18px 18px 110px;text-align:center;color:rgba(255,247,236,0.45);font-size:11.5px;}
-
-  /* sticky bottom CTA */
-  .sticky{
-    position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 14px calc(10px + env(safe-area-inset-bottom));
-    background:linear-gradient(180deg,rgba(20,10,46,0),rgba(20,10,46,0.95) 35%);
-    transform:translateY(120%);transition:transform .3s ease;
-  }
-  .sticky.show{transform:translateY(0);}
-  .sticky .cta-btn{max-width:var(--maxw);margin:0 auto;padding:12px 16px;}
-  .sticky .cta-btn .main{font-size:18px;}
-
-  /* honeypot: invisible to humans, bots that click every link hit it */
-  .hp{position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;}
-
-  .iab-banner{display:none;align-items:center;gap:10px;padding:10px 14px;background:#FFD23F;color:#140A2E;font-size:12.5px;font-weight:600;line-height:1.35;}
-  .iab-banner.show{display:flex;}
-  .iab-banner button{margin-left:auto;border:0;background:#140A2E;color:#fff;border-radius:6px;padding:4px 9px;font-size:12px;cursor:pointer;}
-
-  /* ---------- LOCKED (verifying) STATE ---------- */
-  .cta-btn.locked{
-    cursor:not-allowed;filter:saturate(.45) brightness(.82);
-    animation:flow 6s linear infinite;box-shadow:0 6px 18px -8px rgba(0,0,0,.6);
-  }
-  .cta-btn.locked::after{display:none;}
-  .cta-btn.locked::before{
-    content:"";position:absolute;left:0;top:0;bottom:0;z-index:0;
-    width:calc(var(--p,0) * 100%);background:rgba(255,255,255,.28);
-    transition:width .25s linear;
-  }
-  .cta-btn.nope{animation:flow 6s linear infinite, nope .35s ease;}
-  @keyframes nope{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
-  .verify-note{display:block;margin-top:6px;font-size:11.5px;color:rgba(255,247,236,.6);}
-  #gateDebug{position:fixed;left:8px;top:8px;z-index:9999;background:rgba(0,0,0,.8);color:#9f9;font:11px/1.4 monospace;padding:6px 8px;border-radius:6px;pointer-events:none;white-space:pre;}
-
-  @media (prefers-reduced-motion: reduce){
-    *,*::before,*::after{animation:none !important;transition:none !important;}
-  }
+:root{--bg:#06140f;--card:#0f2a20;--line:#1f5a42;--gold:#ffc93c;--orange:#00c853;--pink:#00e0a4;--text:#f4fff9;--muted:#a9d1bf}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Poppins','Noto Sans Gujarati',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:radial-gradient(900px 420px at 50% -5%,#0f5a3a 0%,transparent 70%),radial-gradient(700px 400px at 100% 40%,#4a3a08 0%,transparent 60%),var(--bg);color:var(--text);line-height:1.55;min-height:100vh;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{width:100%;max-width:480px;margin:0 auto;padding:18px 16px 36px}
+.gu{font-family:'Noto Sans Gujarati','Poppins',sans-serif}
+#iab{display:none;background:#3a2a00;border:1px solid var(--gold);color:var(--gold);border-radius:12px;padding:10px 12px;font-size:13px;margin-bottom:12px;text-align:center}
+.top{text-align:center}
+.logo{display:block;width:104px;height:104px;margin:0 auto;border-radius:50%;object-fit:cover;object-position:center 12%;background:#0f2a20;border:3px solid #ffe07a;box-shadow:0 0 0 6px rgba(255,201,60,.16),0 0 34px rgba(255,160,0,.55);animation:ring 2.6s ease-in-out infinite}
+@keyframes ring{50%{box-shadow:0 0 0 10px rgba(255,201,60,.07),0 0 48px rgba(255,160,0,.8)}}
+.eyebrow{display:inline-block;margin-top:14px;padding:7px 15px;border-radius:999px;background:linear-gradient(90deg,rgba(255,201,60,.16),rgba(0,224,164,.16));border:1px solid rgba(255,201,60,.55);color:#ffe9a8;font-size:12.5px;font-weight:600}
+.cta{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:16px;padding:18px 12px;border-radius:16px;text-decoration:none;font-weight:800;font-size:17px;color:#fff;background:#1f3d31;border:2px solid #3e7a5f;text-align:center;line-height:1.3;transition:all .25s}
+.cta svg{width:24px;height:24px;flex:none}
+.cta.ready{background:linear-gradient(120deg,var(--orange),var(--pink));border-color:#ffe9a8;color:#04200f;box-shadow:0 0 0 0 rgba(0,200,83,.7),0 10px 30px rgba(0,224,164,.45);animation:pulse 1.3s ease-out infinite,pop 1.3s ease-in-out infinite}
+.cta.ready::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:shine 2.2s ease-in-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,200,83,.75),0 10px 30px rgba(0,224,164,.45)}100%{box-shadow:0 0 0 18px rgba(0,200,83,0),0 10px 30px rgba(0,224,164,.45)}}
+@keyframes pop{50%{transform:scale(1.03)}}
+@keyframes shine{0%{left:-60%}60%,100%{left:130%}}
+.hint{display:none;margin-top:10px;font-size:12.5px;color:#ffb3b3;text-align:center}
+.hint.show{display:block}
+.note{margin-top:9px;font-size:12px;color:var(--muted);text-align:center}
+h1{font-size:26px;line-height:1.25;margin-top:22px;font-weight:800;background:linear-gradient(90deg,#ffe07a,#ffc93c 55%,#7dffc0);-webkit-background-clip:text;background-clip:text;color:transparent;text-align:center}
+.sub{margin-top:6px;font-size:17px;font-weight:600;color:#fff;text-align:center}
+.lead{margin-top:8px;color:var(--muted);font-size:13.5px;text-align:center}
+.card{background:linear-gradient(180deg,var(--card),#0a1d16);border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:18px}
+.card h2{font-size:15px;color:var(--gold);margin-bottom:10px;font-weight:700}
+ul.ben{list-style:none}
+ul.ben li{display:flex;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:14px}
+ul.ben li:last-child{border:0}
+ul.ben b{color:var(--orange);flex:none}
+.steps{counter-reset:s}
+.steps li{list-style:none;position:relative;padding:8px 0 8px 40px;font-size:14px}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:7px;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--orange));color:#2a1500;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
+small{color:var(--muted)}
+.disc{margin-top:18px;font-size:11.5px;color:#7fb09b;text-align:center;line-height:1.6}
+.ad{margin-top:14px;text-align:center;font-size:12px;color:var(--muted)}
+.ad a{color:var(--gold);text-decoration:none;font-weight:600}
+@media (prefers-reduced-motion:reduce){.logo,.cta.ready,.cta.ready::after{animation:none}}
 </style>
 </head>
 <body>
+<div class="wrap">
+  <div id="iab" class="gu">⚠️ કૃપા કરીને આ પેજ Chrome / Safari માં ખોલો (ઉપર ⋮ મેનુ → Open in browser). / Please open this page in your browser for smooth Telegram opening.</div>
 
-<div class="iab-banner gu" id="iabBanner">
-  <div>ટેલિગ્રામ સરળતાથી ખોલવા: ઉપર જમણી બાજુ <b>⋯</b> દબાવો → <b>“Open in browser”</b><br><span style="font-weight:500">Tip: tap ⋯ → "Open in browser" for a smooth Telegram join.</span></div>
-  <button type="button" id="iabClose">OK</button>
-</div>
+  <header class="top">
+    <img class="logo" src="gj.jpg" alt="Gujrati Traders" width="104" height="104">
+    <div><span class="eyebrow gu">🎓 મફત લર્નિંગ કમ્યુનિટી • Free Learning Community</span></div>
+  </header>
 
-<a href="https://t.me/" class="hp" id="hp" tabindex="-1" aria-hidden="true">join</a>
-
-<header class="top">
-  <div class="logo-ring"><img src="guj.jpg" alt="Gujarati Trader logo" width="70" height="70"></div>
-  <div>
-    <div class="brand-name">Gujarati Trader's<br>Learning Station</div>
-    <div class="brand-gu gu">ગુજરાતી ટ્રેડર</div>
-  </div>
-  <div class="status-pill"><span class="dot"></span>Live</div>
-</header>
-
-<main class="wrap">
-  <section class="hero">
-    <div class="hero-logo"><img src="guj.jpg" alt="" width="124" height="124" fetchpriority="high"></div>
-    <div class="eyebrow gu">મફત દૈનિક માર્કેટ શીખ · Free daily learning</div>
-    <h1 class="gu">અનુમાન નહીં,<br><span class="grad">સમજ સાથે ટ્રેડ કરો</span></h1>
-    <div class="h1-en">Trade with a clear head, not a hunch.</div>
-    <p class="sub gu">દરરોજ માર્કેટ અપડેટ, રિસ્ક મેનેજમેન્ટના પાઠ અને સાચી વાત — ગુજરાતી ટ્રેડર્સ માટે.</p>
-    <p class="sub-en">Daily setups, risk-first lessons and honest market talk for Gujarati traders.</p>
-
-    <div class="ticker" id="ticker" aria-hidden="true"></div>
-
-    <div class="badge-new">● JOIN NOW · હમણાં જોડાઓ</div>
-    <a href="#" class="cta-btn js-cta locked" rel="noopener" aria-disabled="true">
-      <span class="row">
-        <span class="tg-ico"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M21.5 3.5L2.8 10.7c-1 .4-1 1.6.1 1.9l4.7 1.5 1.8 5.6c.3.8 1.3 1 1.9.4l2.6-2.4 4.8 3.5c.7.5 1.7.1 1.9-.7l3.1-14.5c.2-1.1-.9-2-2.2-1.5z" fill="#229ED9"/></svg></span>
-        <span class="main">ટેલિગ્રામ પર મફત જોડાઓ</span>
-      </span>
-      <span class="en">JOIN FREE ON TELEGRAM</span>
-    </a>
-    <div class="cta-note gu">કોઈ ફી નહીં · કોઈ સ્પામ નહીં · ગમે ત્યારે છોડી શકો<br><span style="opacity:.75">No cost · No spam · Leave anytime</span><br><span style="color:var(--gold);font-weight:600">ટેલિગ્રામ ઍપ ઇન્સ્ટોલ હોવી જોઈએ · Telegram app required</span><span class="verify-note">સુરક્ષા માટે બટન થોડી સેકન્ડમાં ખુલશે · Button unlocks in a few seconds (anti-spam)</span></div>
-
-    <div class="trust">
-      <div class="trust-item"><div class="trust-num gu">દરરોજ</div><div class="trust-label">Daily notes</div></div>
-      <div class="trust-item"><div class="trust-num">100%</div><div class="trust-label gu">મફત · Free</div></div>
-      <div class="trust-item"><div class="trust-num gu">ગુજરાતી</div><div class="trust-label">Simple language</div></div>
-    </div>
-  </section>
-
-  <section>
-    <h2 class="sec-title gu">ચેનલમાં તમને શું મળશે</h2>
-    <p class="sec-en">What you'll get inside — nothing sold, nothing hidden</p>
-    <div class="learn-list">
-      <div class="learn-row" style="--c:#FF9933">
-        <div class="learn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 17L9 11L13 15L21 7" stroke="#140A2E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7H21V13" stroke="#140A2E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="learn-copy">
-          <h3 class="gu">દૈનિક માર્કેટ સમજ</h3>
-          <div class="h3-en">Daily market read</div>
-          <p class="gu">માર્કેટ ખુલે તે પહેલાં — શું બદલાયું અને કેમ, સરળ ભાષામાં.</p>
-        </div>
-      </div>
-      <div class="learn-row" style="--c:#FF3D8B">
-        <div class="learn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3L4 6V12C4 16.5 7.4 20.3 12 21C16.6 20.3 20 16.5 20 12V6L12 3Z" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"/></svg></div>
-        <div class="learn-copy">
-          <h3 class="gu">પહેલા રિસ્ક, પછી રિવોર્ડ</h3>
-          <div class="h3-en">Risk before reward</div>
-          <p class="gu">પોઝિશન સાઇઝ અને સ્ટોપ-લોસની આદતો ગુજરાતીમાં સમજાવેલ.</p>
-        </div>
-      </div>
-      <div class="learn-row" style="--c:#22D3EE">
-        <div class="learn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 5H20V16H9L4 20V5Z" stroke="#140A2E" stroke-width="2.2" stroke-linejoin="round"/></svg></div>
-        <div class="learn-copy">
-          <h3 class="gu">પૂછો, ફક્ત જુઓ નહીં</h3>
-          <div class="h3-en">Ask, don't just watch</div>
-          <p class="gu">ચેનલમાં તમારા સવાલ પૂછો — સાચા સવાલોના સાચા જવાબ.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <h2 class="sec-title gu">કોણ શીખવે છે</h2>
-    <p class="sec-en">Who's teaching</p>
-    <div class="mentor">
-      <img src="guj.jpg" alt="Learning Station mentor" width="78" height="78" loading="lazy">
-      <div>
-        <h3>Learning Station Desk</h3>
-        <p class="gu">દૈનિક નોટ્સ અને સભ્યોના સવાલોના જવાબ ચેનલમાં જ — કોઈ પેઇડ કૉલ નહીં, કોઈ ટિપ્સ વેચાણ માટે નહીં.</p>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <h2 class="sec-title gu">કેવી રીતે જોડાવું</h2>
-    <p class="sec-en">How it works — 3 simple steps</p>
-    <div class="steps">
-      <div class="step"><div class="step-num">1</div><div><h4 class="gu">બટન દબાવો</h4><p>Tap the button — goes straight to Telegram, no form.</p></div></div>
-      <div class="step"><div class="step-num">2</div><div><h4 class="gu">ટેલિગ્રામમાં “Join” દબાવો</h4><p>Telegram opens — tap "Request to Join" / "Join". That last tap is what counts.</p></div></div>
-      <div class="step"><div class="step-num">3</div><div><h4 class="gu">પહેલી નોટ વાંચો</h4><p>Today's market breakdown is already waiting.</p></div></div>
-    </div>
-  </section>
-
-  <div class="final-cta">
-    <h2 class="gu">સ્પષ્ટ મનથી ટ્રેડ કરવા તૈયાર છો?</h2>
-    <p class="en">Ready to trade with a clear head? Free today, free tomorrow.</p>
-    <a href="#" class="cta-btn js-cta locked" rel="noopener" aria-disabled="true">
-      <span class="row">
-        <span class="tg-ico"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M21.5 3.5L2.8 10.7c-1 .4-1 1.6.1 1.9l4.7 1.5 1.8 5.6c.3.8 1.3 1 1.9.4l2.6-2.4 4.8 3.5c.7.5 1.7.1 1.9-.7l3.1-14.5c.2-1.1-.9-2-2.2-1.5z" fill="#229ED9"/></svg></span>
-        <span class="main">હમણાં મફત જોડાઓ</span>
-      </span>
-      <span class="en">JOIN FREE NOW</span>
-    </a>
-  </div>
-</main>
-
-<footer class="gu">
-  ગુજરાતી ટ્રેડર્સ લર્નિંગ સ્ટેશન — ફક્ત શૈક્ષણિક માહિતી, રોકાણ સલાહ નથી.<br>
-  Educational content only, not investment advice.
-
-<div style="text-align:center; margin:14px 0 10px 0; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08);">
-            <p style="font-weight:bold; margin-bottom:6px; font-size:11px; color:#94a3b8;">Advertised by : SRS Marketing Agency</p>
-            <a href="https://t.me/srsagency" target="_blank" style="
-                display:inline-block;
-                background-color:#f39405;
-                color:#ffffff;
-                padding:6px 14px;
-                border-radius:6px;
-                text-decoration:none;
-                font-weight:600;
-                font-size:12px;
-                font-family:sans-serif;">
-                📩 Visit @ SRS | Marketing ...
-            </a>
-        </div>
-
-</footer>
-
-<div class="sticky" id="sticky">
-  <a href="#" class="cta-btn js-cta locked" rel="noopener" aria-disabled="true">
-    <span class="row">
-      <span class="tg-ico"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M21.5 3.5L2.8 10.7c-1 .4-1 1.6.1 1.9l4.7 1.5 1.8 5.6c.3.8 1.3 1 1.9.4l2.6-2.4 4.8 3.5c.7.5 1.7.1 1.9-.7l3.1-14.5c.2-1.1-.9-2-2.2-1.5z" fill="#229ED9"/></svg></span>
-      <span class="main">ટેલિગ્રામ પર જોડાઓ · Join</span>
-    </span>
+  <a id="cta1" class="cta" href="#cta1" rel="noopener" data-cta="1">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.8 15.6l-.4 4.2c.6 0 .9-.3 1.2-.6l2.9-2.7 6 4.4c1.1.6 1.9.3 2.2-1L24 4.1c.4-1.6-.6-2.3-1.7-1.9L1.5 10.3c-1.6.6-1.6 1.5-.3 1.9l5.3 1.6 12.3-7.8c.6-.4 1.1-.2.7.2z"/></svg>
+    <span class="gu lbl">⏳ લોડ થઈ રહ્યું છે… / Loading…</span>
   </a>
+  <p class="gunt gu" id="hint1">એક સેકન્ડ રાહ જુઓ અને ફરી ટેપ કરો.<br>Please wait a second and tap again.</p>
+  <p class="note gu">Telegram માં “REQUEST TO JOIN” દબાવવાનું ભૂલશો નહીં / Don't forget to tap “REQUEST TO JOIN”</p>
+
+  <h1>Learn Enhanced Skills with Gujrati Traders</h1>
+  <p class="sub gu">ગુજરાતી ટ્રેડર્સ સાથે એન્હાન્સ્ડ સ્કિલ્સ શીખો</p>
+  <p class="lead gu">ગુજરાતી અને English માં સ્ટોક માર્કેટ એજ્યુકેશન • Stock market education in Gujarati &amp; English</p>
+
+  <section class="card">
+    <h2 class="gu">✅ તમે શું શીખશો / What you will learn</h2>
+    <ul class="ben gu">
+      <li><b>▶</b><span>સ્ટોક માર્કેટ બેઝિક્સથી એડવાન્સ્ડ સુધી<br><small>Stock market basics to advanced concepts</small></span></li>
+      <li><b>▶</b><span>ચાર્ટ અને કેન્ડલસ્ટિક રીડિંગ<br><small>Chart &amp; candlestick reading</small></span></li>
+      <li><b>▶</b><span>રિસ્ક મેનેજમેન્ટ અને ટ્રેડિંગ ડિસિપ્લિન<br><small>Risk management &amp; trading discipline</small></span></li>
+      <li><b>▶</b><span>સરળ ગુજરાતી ભાષામાં સમજૂતી<br><small>Explained in simple Gujarati</small></span></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2 class="gu">🚀 કેવી રીતે જોડાવું / How to join</h2>
+    <ol class="steps gu">
+      <li>ચમકતું Telegram બટન દબાવો<br><small>Tap the glowing Telegram button</small></li>
+      <li>Telegram માં “REQUEST TO JOIN” દબાવો<br><small>Tap “REQUEST TO JOIN” inside Telegram</small></li>
+      <li>એડમિન મંજૂર કરે પછી શીખવાનું શરૂ કરો<br><small>Start learning once the admin approves</small></li>
+    </ol>
+    <a id="cta2" class="cta" href="#cta1" rel="noopener" data-cta="2">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.8 15.6l-.4 4.2c.6 0 .9-.3 1.2-.6l2.9-2.7 6 4.4c1.1.6 1.9.3 2.2-1L24 4.1c.4-1.6-.6-2.3-1.7-1.9L1.5 10.3c-1.6.6-1.6 1.5-.3 1.9l5.3 1.6 12.3-7.8c.6-.4 1.1-.2.7.2z"/></svg>
+      <span class="gu lbl">⏳ લોડ થઈ રહ્યું છે… / Loading…</span>
+    </a>
+    <p class="gunt gu" id="hint2">એક સેકન્ડ રાહ જુઓ અને ફરી ટેપ કરો.<br>Please wait a second and tap again.</p>
+  </section>
+
+  <p class="disc gu">⚠️ આ માત્ર શૈક્ષણિક હેતુ માટે છે. રોકાણ સલાહ નથી. શેરબજારમાં જોખમ હોય છે અને નફાની કોઈ ગેરંટી નથી.<br>Educational purpose only. Not investment advice. Market investments carry risk and no profit is guaranteed.</p>
+  <p class="ad">Ad by: <a href="https://t.me/srsagency" rel="noopener">SRS Marketing Agency</a></p>
 </div>
-
-
 
 <script>
-/* ============================================================
-   CONFIG — edit only this block
-   ============================================================ */
-var TG_CONFIG = {
-  pixelId: "1553876416509378",
-  inviteHash: "kravXRZxU1dmZTZl",   // part after "t.me/+"  (NOT written in the page HTML any more)
-  eventName: "Lead",
-  contentName: "gujarati_trader_learning_station",
-
-  /* ---- fake-request gate (all must pass before the Telegram link even exists on the page) ---- */
-  ignoreClickMs: 1000,   // any tap in the first 1s is dead: no navigation, no Lead
-  minMovePx: 60,         // real scroll / swipe / mouse movement needed (proves a human is looking at the page)
-  minEngagedMs: 3000,    // ...and they must stay 3s after that first real movement
-  minDwellMs: 8000,      // total time the page was actually visible before the button unlocks
-  dedupHours: 24,        // Lead PIXEL event once per device per 24h (never blocks Telegram access)
-  reportFiltered: true   // send custom "FilteredClick" event with the reason (diagnostics only)
+/* ===== CONFIG ===== */
+var CFG={
+  pixel:'1553876416509378',
+  tg:'https://t.me/+kravXRZxU1dmZTZl',
+  event:'Lead',
+  page:'Learn Enhanced Skills with Gujrati Traders',
+  minDwellMs:2000
 };
+/* ===== Meta Pixel (no auto PageView: qualified PageView is fired below) ===== */
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init',CFG.pixel);
 
 (function(){
-  if (window.__ESCAPING) return;    // page is being reopened in Chrome; let that copy do the tracking
+  var ua=navigator.userAgent||'';
+  var t0=Date.now(),interacted=false,focusedSecs=0,pvFired=false;
+  var $=function(id){return document.getElementById(id)};
+  var ctas=[$('cta1'),$('cta2')],hints=[$('hint1'),$('hint2')];
 
-  /* ---------- Meta Pixel base ---------- */
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-  document,'script','https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', TG_CONFIG.pixelId);
-  fbq('track', 'PageView');
+  var isBot=(function(){
+    try{
+      if(navigator.webdriver)return true;
+      if(/HeadlessChrome|PhantomJS|Puppeteer|Selenium|Playwright|Lighthouse|bot|crawl|spider|facebookexternalhit|Facebot|Bytespider/i.test(ua))return true;
+      if(window.callPhantom||window._phantom||window.__nightmare)return true;
+    }catch(e){}
+    return false;
+  })();
 
-  /* ---------- iOS in-app browser banner ---------- */
-  var banner = document.getElementById("iabBanner");
-  if (window.__IAB && window.__IOS && banner) {
-    banner.classList.add("show");
-    document.getElementById("iabClose").addEventListener("click", function(){ banner.classList.remove("show"); });
+  var inApp=/FBAN|FBAV|FB_IAB|FBIOS|Instagram/i.test(ua);
+  var isAndroid=/Android/i.test(ua);
+  var finalHref=CFG.tg;
+  if(inApp&&isAndroid){
+    finalHref='intent://'+CFG.tg.replace(/^https?:\/\//,'')+'#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url='+encodeURIComponent(CFG.tg)+';end';
+  }else if(inApp){
+    $('iab').style.display='block';
   }
 
-  /* ============================================================
-     FAKE-REQUEST GATE
-     The real Telegram link is NOT in the HTML. Every button starts locked
-     (href="#"). The link is attached only after ALL of this is true:
-       1. page really visible for >= minDwellMs (hidden / background tab time does not count)
-       2. real human movement (scroll / swipe / mouse) >= minMovePx
-       3. >= minEngagedMs of viewing after that first real movement
-       4. not an automated browser, honeypot untouched
-     After unlock the button is a plain <a href="https://t.me/+..."> again, so the
-     browser opens Telegram natively on the user's own tap (no preventDefault,
-     no setTimeout, user-activation kept = same hand-off as before).
-     On click we re-check everything; a click that fails is cancelled.
-     ============================================================ */
-  var CFG = TG_CONFIG;
-  var TG_URL = ["https:", "", "t.me", "+" + CFG.inviteHash].join("/");
-  var DEDUP_KEY = "tg_lead_" + CFG.pixelId;
-  var DEBUG = /[?&]gate_debug=1(&|$)/.test(location.search);
-
-  function trusted(e){ return !!e && e.isTrusted !== false; }
-
-  var ctas = [].slice.call(document.querySelectorAll(".js-cta"));
-  ctas.forEach(function(a){
-    var m = a.querySelector(".main"), en = a.querySelector(".en");
-    a.__main = m ? m.innerHTML : "";
-    a.__en = en ? en.innerHTML : null;
+  ['touchstart','pointerdown','mousedown','keydown','scroll','mousemove'].forEach(function(ev){
+    window.addEventListener(ev,function(e){if(e.isTrusted)interacted=true},{passive:true});
   });
 
-  var dwell = 0, lastTick = performance.now(), loadAt = Date.now();
-  var moveScore = 0, engagedFrom = null, lastInputAt = 0;
-  var lastY = window.pageYOffset || 0, tx = null, ty = null;
-  var pressed = null, pressedAt = 0, honeypotHit = false, leadFiredAt = 0;
-  var unlocked = false, reported = {};
+  function ready(){return !isBot&&interacted&&(Date.now()-t0>=CFG.minDwellMs)}
 
-  /* ---------- bot / automation checks ---------- */
-  function isAutomated(){
-    var ua = navigator.userAgent || "";
-    if (navigator.webdriver) return "webdriver";
-    if (/HeadlessChrome|PhantomJS|Puppeteer|Playwright|Selenium|bot\b|crawler|spider|facebookexternalhit|Facebot|Lighthouse|Python|curl|wget|Go-http|axios|node-fetch/i.test(ua)) return "ua";
-    if (!window.screen || screen.width < 100 || screen.height < 100) return "screen";
-    if (window.outerWidth === 0 && window.outerHeight === 0) return "headless_window";
-    if (window.callPhantom || window._phantom || window.__nightmare || window.domAutomation || window.domAutomationController) return "automation_global";
-    if (!navigator.languages || navigator.languages.length === 0) return "no_languages";
-    var mobile = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
-    if (!mobile && navigator.plugins && navigator.plugins.length === 0 && /Chrome/.test(ua) && !/Edg|OPR/.test(ua)) return "no_plugins_desktop";
-    return null;
-  }
-  var botReason = isAutomated();
-  document.getElementById("hp").addEventListener("click", function(e){ honeypotHit = true; e.preventDefault(); });
-  function isBlocked(){ return !!botReason || honeypotHit; }
-
-  /* ---------- real-human movement ---------- */
-  function addMove(n, e){
-    if (!trusted(e)) return;
-    if (dwell < 700) return;                    // ignore the first 0.7s (ad-tap carry-over / ghost touches)
-    moveScore += n;
-    if (engagedFrom === null && moveScore >= CFG.minMovePx) engagedFrom = dwell;
-  }
-  window.addEventListener("touchstart", function(e){
-    lastInputAt = Date.now();
-    var t = e.touches && e.touches[0]; if (t){ tx = t.clientX; ty = t.clientY; }
-  }, {passive:true});
-  window.addEventListener("touchmove", function(e){
-    lastInputAt = Date.now();
-    var t = e.touches && e.touches[0]; if (!t) return;
-    if (ty !== null) addMove(Math.abs(t.clientY - ty) + Math.abs(t.clientX - tx), e);
-    tx = t.clientX; ty = t.clientY;
-  }, {passive:true});
-  window.addEventListener("touchend", function(){ lastInputAt = Date.now(); ty = null; tx = null; }, {passive:true});
-  window.addEventListener("wheel", function(e){ lastInputAt = Date.now(); addMove(Math.abs(e.deltaY) + Math.abs(e.deltaX), e); }, {passive:true});
-  window.addEventListener("mousemove", function(e){ addMove(Math.abs(e.movementX || 0) + Math.abs(e.movementY || 0), e); }, {passive:true});
-  window.addEventListener("keydown", function(e){ lastInputAt = Date.now(); addMove(20, e); }, {passive:true});
-  window.addEventListener("scroll", function(e){
-    var y = window.pageYOffset || 0;
-    // a scroll only counts if a real touch/wheel/key happened just before it (momentum scroll included)
-    if (Date.now() - lastInputAt < 2500) addMove(Math.abs(y - lastY), {isTrusted:true});
-    lastY = y;
-  }, {passive:true});
-  window.addEventListener("pointerdown", function(e){
-    if (e.target && e.target.closest && e.target.closest(".js-cta")) return;   // pressing the locked button is not "reading"
-    addMove(20, e);
-  }, {passive:true});
-
-  /* ---------- state ---------- */
-  function state(){
-    var engaged = engagedFrom === null ? 0 : dwell - engagedFrom;
-    return {
-      dwell: dwell, engaged: engaged, moved: engagedFrom !== null,
-      ok: engagedFrom !== null && dwell >= CFG.minDwellMs && engaged >= CFG.minEngagedMs
-    };
-  }
-
-  /* ---------- locked-button labels ---------- */
-  function setLabel(a, gu, en){
-    var m = a.querySelector(".main"), e = a.querySelector(".en");
-    if (m) m.textContent = e ? gu : gu + " · " + en;
-    if (e) e.textContent = en;
-  }
-  function paintLocked(st){
-    var secs = Math.max(
-      Math.ceil((CFG.minDwellMs - st.dwell) / 1000),
-      st.moved ? Math.ceil((CFG.minEngagedMs - st.engaged) / 1000) : 0, 1);
-    var p = (Math.min(st.dwell / CFG.minDwellMs, 1) + (st.moved ? Math.min(st.engaged / CFG.minEngagedMs, 1) : 0)) / 2;
+  function render(){
+    var r=ready();
     ctas.forEach(function(a){
-      a.style.setProperty("--p", p.toFixed(3));
-      if (!st.moved) setLabel(a, "નીચે સ્ક્રોલ કરીને વાંચો", "SCROLL & READ TO UNLOCK");
-      else setLabel(a, "ચકાસણી ચાલુ · " + secs + "s", "VERIFYING · " + secs + "s");
-    });
-  }
-  function unlock(){
-    unlocked = true;
-    ctas.forEach(function(a){
-      a.href = TG_URL;
-      a.classList.remove("locked", "nope");
-      a.removeAttribute("aria-disabled");
-      a.style.removeProperty("--p");
-      var m = a.querySelector(".main"), e = a.querySelector(".en");
-      if (m) m.innerHTML = a.__main;
-      if (e && a.__en !== null) e.innerHTML = a.__en;
-    });
-  }
-
-  /* ---------- timer: counts ONLY visible time ---------- */
-  var dbg = null;
-  if (DEBUG){ dbg = document.createElement("div"); dbg.id = "gateDebug"; document.body.appendChild(dbg); }
-  setInterval(function(){
-    var now = performance.now(), d = now - lastTick; lastTick = now;
-    if (document.visibilityState === "visible") dwell += Math.min(d, 400);   // clamp: a frozen/sleeping phone can't "bank" time
-    var st = state();
-    if (!unlocked){
-      if (isBlocked()) { /* stays locked forever, link never attached */ }
-      else if (st.ok) unlock();
-      else paintLocked(st);
-    }
-    if (dbg) dbg.textContent = "dwell " + (st.dwell/1000).toFixed(1) + "s\nengaged " + (st.engaged/1000).toFixed(1) + "s\nmove " + Math.round(moveScore) +
-      "px\nunlocked " + unlocked + "\nbot " + (botReason || honeypotHit ? (botReason || "honeypot") : "no");
-  }, 200);
-
-  /* ---------- Lead event (pixel only; never affects navigation) ---------- */
-  function recentlyFired(){
-    try {
-      var t = parseInt(localStorage.getItem(DEDUP_KEY) || sessionStorage.getItem(DEDUP_KEY) || "0", 10);
-      return t && (Date.now() - t) < CFG.dedupHours * 3600 * 1000;
-    } catch(e){ return false; }
-  }
-  function markFired(){
-    var now = String(Date.now());
-    try { localStorage.setItem(DEDUP_KEY, now); } catch(e){}
-    try { sessionStorage.setItem(DEDUP_KEY, now); } catch(e){}
-  }
-  function fireLead(){
-    var now = Date.now();
-    if (now - leadFiredAt < 3000) return;       // double-tap on the same click
-    if (recentlyFired()) return;
-    leadFiredAt = now; markFired();
-    var st = state();
-    var eventId = CFG.contentName + "_" + now + "_" + Math.random().toString(36).slice(2, 8);
-    fbq('track', CFG.eventName, {
-      content_name: CFG.contentName,
-      dwell_seconds: Math.round(st.dwell / 1000),
-      engaged_seconds: Math.round(st.engaged / 1000)
-    }, { eventID: eventId });
-  }
-  function report(reason){
-    if (!CFG.reportFiltered || reported[reason]) return;
-    reported[reason] = 1;
-    fbq('trackCustom', 'FilteredClick', { reason: reason, dwell_seconds: Math.round(dwell / 1000) });
-  }
-
-  /* ---------- click check (second line of defence) ---------- */
-  function clickBlockReason(evt, btn){
-    if (!trusted(evt)) return "untrusted";
-    if (isBlocked()) return "bot";
-    if (Date.now() - loadAt < CFG.ignoreClickMs || dwell < CFG.ignoreClickMs) return "too_early";
-    var st = state();
-    if (!unlocked || !st.ok) return "locked";
-    if (evt.detail > 0) {                                           // a mouse/touch click (not keyboard / screen-reader)
-      if (pressed !== btn || Date.now() - pressedAt > 2000) return "no_press";
-      var r = btn.getBoundingClientRect(), x = evt.clientX, y = evt.clientY;
-      if ((x === 0 && y === 0) || x < r.left - 12 || x > r.right + 12 || y < r.top - 12 || y > r.bottom + 12) return "bad_coords";
-    }
-    return null;
-  }
-
-  ctas.forEach(function(btn){
-    var mark = function(e){ if (trusted(e)) { pressed = btn; pressedAt = Date.now(); } };
-    btn.addEventListener("pointerdown", mark, {passive:true});
-    btn.addEventListener("touchstart", mark, {passive:true});
-    btn.addEventListener("mousedown", mark, {passive:true});
-    btn.addEventListener("keydown", function(e){ if (e.key === "Enter" || e.key === " ") mark(e); });
-
-    btn.addEventListener("click", function(evt){
-      var reason = clickBlockReason(evt, btn);
-      if (reason) {
-        evt.preventDefault();                       // fake / early / locked click: Telegram is NOT opened
-        if (reason === "locked" || reason === "no_press" || reason === "bad_coords") {
-          report(reason);
-          btn.classList.remove("nope"); void btn.offsetWidth; btn.classList.add("nope");
-          setTimeout(function(){ btn.classList.remove("nope"); }, 400);
-        }
-        return;
+      var lbl=a.querySelector('.lbl');
+      if(r){
+        if(a.getAttribute('href')!==finalHref)a.setAttribute('href',finalHref);
+        a.classList.add('ready');
+        lbl.textContent='📲 Telegram પર જોડાઓ — Join Free';
+      }else{
+        if(a.getAttribute('href')!=='#cta1')a.setAttribute('href','#cta1');
+        a.classList.remove('ready');
+        lbl.textContent='⏳ લોડ થઈ રહ્યું છે… / Loading…';
       }
-      // verified human: do NOT preventDefault / delay. The browser follows the real href itself.
-      fireLead();
     });
-  });
-
-  /* Sticky CTA appears once the hero button scrolls away */
-  var sticky = document.getElementById("sticky");
-  var heroBtn = document.querySelector(".hero .js-cta");
-  if ("IntersectionObserver" in window && heroBtn) {
-    new IntersectionObserver(function(entries){
-      sticky.classList.toggle("show", !entries[0].isIntersecting);
-    }).observe(heroBtn);
+    if(r)hints.forEach(function(h){h.classList.remove('show')});
   }
-})();
+  setInterval(render,250);render();
 
-/* ============================================================
-   Decorative multicolor candlestick ticker
-   ============================================================ */
-(function(){
-  var el = document.getElementById("ticker"); if (!el) return;
-  var colors = ["#22C55E","#FF3D8B","#FFD23F","#22D3EE","#FF9933","#8B5CF6"];
-  var html = "";
-  for (var i = 0; i < 28; i++) {
-    var h = 10 + Math.round(Math.random() * 34);
-    html += '<div class="candle" style="height:' + h + 'px;background:' + colors[i % colors.length] +
-            ';animation-delay:' + (i * 0.09).toFixed(2) + 's"></div>';
+  /* qualified PageView: interaction + 3s, or focused/visible 8s */
+  setInterval(function(){
+    if(isBot||pvFired)return;
+    if(document.visibilityState==='visible'&&document.hasFocus())focusedSecs+=0.5;
+    var el=Date.now()-t0;
+    if((interacted&&el>=3000)||focusedSecs>=8){
+      pvFired=true;
+      try{fbq('track','PageView')}catch(e){}
+    }
+  },500);
+
+  /* CTA click: Lead only on a trusted, human tap after dwell time; navigation stays native */
+  function onCta(e){
+    var a=e.currentTarget;
+    if(!e.isTrusted||isBot){e.preventDefault();return}
+    if(!ready()){
+      e.preventDefault();
+      var h=hints[a.getAttribute('data-cta')==='1'?0:1];
+      h.classList.add('show');
+      return;
+    }
+    var k='leadFired_'+CFG.pixel,fired=false;
+    try{fired=sessionStorage.getItem(k)==='1'}catch(x){}
+    if(!fired){
+      try{sessionStorage.setItem(k,'1')}catch(x){}
+      var id='ld_'+Date.now()+'_'+Math.random().toString(36).slice(2,9);
+      try{fbq('track',CFG.event,{content_name:CFG.page},{eventID:id})}catch(x){}
+    }
   }
-  el.innerHTML = html;
+  ctas.forEach(function(a){a.addEventListener('click',onCta)});
 })();
 </script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3001151236903306&ev=PageView&noscript=1"></noscript>
 </body>
 </html>
